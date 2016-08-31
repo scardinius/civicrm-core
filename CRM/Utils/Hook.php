@@ -2203,4 +2203,16 @@ abstract class CRM_Utils_Hook {
     );
   }
 
+  /**
+   * This hook is called while url is filtering for tracking or not.
+   *
+   * @param string $url
+   * @param boolean $filter  true means not tracking, just return url.
+   *
+   * @return mixed
+   */
+  public static function urlFilter($url, &$filter) {
+    return self::singleton()
+      ->invoke(2, $url, $filter, self::$_nullObject, self::$_nullObject, self::$_nullObject, self::$_nullObject, 'civicrm_urlFilter');
+  }
 }
