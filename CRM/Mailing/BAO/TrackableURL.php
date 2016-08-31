@@ -128,4 +128,23 @@ class CRM_Mailing_BAO_TrackableURL extends CRM_Mailing_DAO_TrackableURL {
     return NULL;
   }
 
+
+  /**
+   * @return \CRM_Mailing_DAO_TrackableURL
+   */
+  public function save() {
+    $hook = 'create';
+    $params = array(
+      'url' => $this->url,
+      'mailing_id' => $this->mailing_id,
+    );
+    CRM_Utils_Hook::pre($hook, 'TrackableURL', NULL, $params);
+
+    $tracker = new CRM_Mailing_DAO_TrackableURL();
+    $tracker->copyValues($params);
+    $tracker->save();
+
+    CRM_Utils_Hook::post($hook, 'TrackableURL', $tracker->id, $tracker);
+    return $tracker;
+  }
 }
