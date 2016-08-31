@@ -2207,12 +2207,14 @@ abstract class CRM_Utils_Hook {
    * This hook is called while url is filtering for tracking or not.
    *
    * @param string $url
+   * @param int $mailing_id
+   * @param int $queue_id
    * @param boolean $filter  true means not tracking, just return url.
    *
    * @return mixed
    */
-  public static function urlFilter($url, &$filter) {
+  public static function urlFilter($url, $mailing_id, $queue_id, &$filter) {
     return self::singleton()
-      ->invoke(2, $url, $filter, self::$_nullObject, self::$_nullObject, self::$_nullObject, self::$_nullObject, 'civicrm_urlFilter');
+      ->invoke(4, $url, $mailing_id, $queue_id, $filter, self::$_nullObject, self::$_nullObject, 'civicrm_urlFilter');
   }
 }

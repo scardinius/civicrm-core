@@ -70,7 +70,7 @@ class CRM_Mailing_BAO_TrackableURL extends CRM_Mailing_DAO_TrackableURL {
     ) {
       $filter = true;
     }
-    CRM_Utils_Hook::urlFilter($url, $filter);
+    CRM_Utils_Hook::urlFilter($url, $mailing_id, $queue_id, $filter);
     if ($filter) {
       // let's not cache these, so they don't get &qid= appended to them
       return $url;
