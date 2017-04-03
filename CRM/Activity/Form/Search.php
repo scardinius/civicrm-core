@@ -280,10 +280,22 @@ class CRM_Activity_Form_Search extends CRM_Core_Form_Search {
       return;
     }
 
-    $status = CRM_Utils_Request::retrieve('status', 'String', $this);
-    if ($status) {
-      $this->_formValues['activity_status_id'] = $status;
-      $this->_defaults['activity_status_id'] = $status;
+    if ($status = CRM_Utils_Request::retrieve('status', 'String', $this)) {
+      $statuses = array_map('intval', explode(',', $status));
+      $this->_formValues['activity_status_id'] = $statuses;
+      $this->_defaults['activity_status_id'] = $statuses;
+    }
+
+    if ($type = CRM_Utils_Request::retrieve('type', 'String', $this)) {
+      $types = array_map('intval', explode(',', $type));
+      $this->_formValues['activity_type_id'] = $types;
+      $this->_defaults['activity_type_id'] = $types;
+    }
+
+    if ($campaign = CRM_Utils_Request::retrieve('campaign', 'String', $this)) {
+      $campaigns = array_map('intval', explode(',', $campaign));
+      $this->_formValues['activity_campaign_id'] = $campaigns;
+      $this->_defaults['activity_campaign_id'] = $campaigns;
     }
 
     $survey = CRM_Utils_Request::retrieve('survey', 'Positive');
