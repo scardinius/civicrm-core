@@ -1274,6 +1274,25 @@ abstract class CRM_Utils_Hook {
   }
 
   /**
+   * This hook is called before record is exported as CSV.
+   *
+   * @param array $ids
+   *   Array of object's ids
+   * @param string $componentTable
+   *   Name of temporary table
+   * @param int $exportMode
+   *   Export mode (contact, contribution, etc...).
+   *
+   * @return mixed
+   */
+  public static function exportIds(&$ids, &$componentTable, &$exportMode) {
+    return self::singleton()->invoke(array('ids', 'componentTable', 'exportMode'), $ids, $componentTable, $exportMode,
+      self::$_nullObject,self::$_nullObject, self::$_nullObject,
+      'civicrm_exportIds'
+    );
+  }
+
+  /**
    * This hook allows modification of the queries constructed from dupe rules.
    *
    * @param string $obj
